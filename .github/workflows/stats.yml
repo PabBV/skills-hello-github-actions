@@ -1,8 +1,10 @@
 name: Stats
 on: 
   push:
-    branches: : [ main ]
+    branches: [ main ]
 jobs:
+ 
+        
   build:
     runs-on: ubuntu-latest
     permissions:
@@ -11,8 +13,6 @@ jobs:
       contents: write
       
     steps:
-      - name: Date
-        run: date
         
       - name: Checkout repo
         uses: actions/checkout@v6
@@ -32,4 +32,6 @@ jobs:
           commit_user_name: Pablo Valverde
           commit_user_email: pablo211@hotmail.com
           commit_autor: PabloValverd
-          
+
+      - name: Ver fecha del runner
+        run: date
