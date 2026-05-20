@@ -11,6 +11,9 @@ jobs:
       contents: write
       
     steps:
+      - name: Date
+        run: date
+        
       - name: Checkout repo
         uses: actions/checkout@v6
 
