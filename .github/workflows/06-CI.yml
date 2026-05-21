@@ -25,21 +25,12 @@ jobs:
           echo "::endgroup::"
   
   frontend-test:
+  
     runs-on: ubuntu-24.04
     steps:
-    - name: Setup pnpm and Node.js
-      uses: ./.github/actions/setup-pnpm-ci-cd
-
-    - name: Lint
-      run: |
-        cd 09-ci-cd
-        echo "::group::Lint"
-        pnpm lint:frontend
-        echo "::endgroup::"
+      - name: checkout code
+        uses: actions/checkout@v6
         
-  backend-lint:
-      runs-on: ubuntu-24.04
-      steps:
       - name: Setup pnpm and Node.js
         uses: ./.github/actions/setup-pnpm-ci-cd
   
@@ -47,20 +38,39 @@ jobs:
         run: |
           cd 09-ci-cd
           echo "::group::Lint"
-          pnpm lint:backend
+          pnpm lint:frontend
           echo "::endgroup::"
+        
+  backend-lint:
+      runs-on: ubuntu-24.04
+      steps:
+        - name: checkout code
+          uses: actions/checkout@v6
+          
+        - name: Setup pnpm and Node.js
+          uses: ./.github/actions/setup-pnpm-ci-cd
+    
+        - name: Lint
+          run: |
+            cd 09-ci-cd
+            echo "::group::Lint"
+            pnpm lint:backend
+            echo "::endgroup::"
   backend-test:
      runs-on: ubuntu-24.04
      steps:
-     - name: Setup pnpm and Node.js
-       uses: ./.github/actions/setup-pnpm-ci-cd
-
-     - name: Lint
-       run: |
-         cd 09-ci-cd
-         echo "::group::Lint"
-         pnpm lint:backend
-         echo "::endgroup::"
+       - name: checkout code
+         uses: actions/checkout@v6
+        
+       - name: Setup pnpm and Node.js
+         uses: ./.github/actions/setup-pnpm-ci-cd
+  
+       - name: Lint
+         run: |
+           cd 09-ci-cd
+           echo "::group::Lint"
+           pnpm lint:backend
+           echo "::endgroup::"
             
   
 
