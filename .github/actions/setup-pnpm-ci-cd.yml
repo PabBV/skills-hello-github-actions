@@ -12,19 +12,26 @@ inputs:
 
 runs:
   using: 'composite'
-  steps: Setup pnpm
-    - name: Checkout code
-      uses: actions/checkout@v6
-      
-    - name: Setup Node.js
+  steps:
+    - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          node-version: ${{ inputs.pnpm-version }}
+          run_install: false
+          
+     - name: Setup Node.js
       uses: actions/setup-node@v6
       with:
         node-version: ${{ inputs.node-version }}
         cache: 'pnpm'
+        
+    - name: install dependencies
+      shell: bash
+      run:  |
+        cd 09-ci-cd
+        pnpm install --frozen-lockfile
+      
+   
 
-    - name: Setup pnpm
-      uses: pnpm/action-setup@v6
-      with:
-        node-version: ${{ inputs.pnpm-version }}
-        run_install: false
+    
   
