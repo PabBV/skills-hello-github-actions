@@ -1,1 +1,27 @@
+name: Setup pnpm and node.js for CI/CD
 
+inputs: 
+  node-version:
+    description: "Node.js version"
+    required: true
+    default: "24"
+  pnpm-version:
+    description: "pnpm version"
+    required: true
+    default: "11"
+
+runs:
+  using: 'composite'
+  steps: Setup pnpm
+    - name: Setup Node.js
+      uses: actions/setup-node@v6
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: 'pnpm'
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v6
+      with:
+        node-version: ${{ inputs.pnpm-version }}
+        run_install: false
+  
